@@ -4,13 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using MediaTracking.BLL;
+using MediaTracking.API.Extensions;
+// using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MediaTracking.API
 {
@@ -26,8 +25,9 @@ namespace MediaTracking.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureBLL(Configuration);
+            services.ConfigureAuthentication(Configuration);
             services.AddControllers();
-            ConfigureBLL.Configure(Configuration,services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
