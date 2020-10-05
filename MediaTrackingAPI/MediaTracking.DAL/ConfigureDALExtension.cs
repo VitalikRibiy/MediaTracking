@@ -1,10 +1,8 @@
-using System.Text;
 using MediaTracking.DAL.Context;
 using MediaTracking.DAL.Models.Authentication;
 using MediaTracking.DAL.Repositories.Implementations;
 using MediaTracking.DAL.Repositories.IRepositories;
 using MediaTracking.DAL.UnitOfWork;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
