@@ -39,7 +39,7 @@ namespace MediaTracking.BLL.Services
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 

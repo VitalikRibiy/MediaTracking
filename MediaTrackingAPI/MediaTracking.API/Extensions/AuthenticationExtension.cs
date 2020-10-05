@@ -1,15 +1,15 @@
-using System;
-using System.Text;
+using MediaTracking.BLL.Factories;
 using MediaTracking.BLL.Helpers;
+using MediaTracking.BLL.Services;
+using MediaTracking.BLL.Services.IServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Threading.Tasks;
-using MediaTracking.BLL.Services.IServices;
-using MediaTracking.BLL.Factories;
-using MediaTracking.BLL.Services;
+using System;
 using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MediaTracking.API.Extensions
 {

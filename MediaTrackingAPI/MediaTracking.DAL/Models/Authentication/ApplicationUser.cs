@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 
 namespace MediaTracking.DAL.Models.Authentication

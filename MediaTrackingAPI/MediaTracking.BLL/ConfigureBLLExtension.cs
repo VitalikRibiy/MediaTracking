@@ -12,14 +12,12 @@ namespace MediaTracking.BLL
     {
         public static void ConfigureBLL(this IServiceCollection services, IConfiguration configuration)
         {
+            services.ConfigureDAL(configuration);
             services.ConfigureAutoMapper();
             services.ConfigureServices();
             
             services.AddScoped<IServiceFactory, ServiceFactory>();
             services.AddScoped<IJwtFactory, JwtFactory>();
-
-            services.ConfigureDAL(configuration);
-
         }
 
         private static void ConfigureServices(this IServiceCollection services)
