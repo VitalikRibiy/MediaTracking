@@ -6,5 +6,6 @@ namespace MediaTracking.BLL.Factories
     {
         IAuthenticationService AuthenticationService { get; }
         IUserService UserService { get; }
+        IRoleService RoleService { get; }
     }
 }

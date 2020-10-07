@@ -6,7 +6,6 @@ namespace MediaTracking.DAL.Models.Authentication
 {
     public class Role : IdentityRole
     {
-        public string TransName { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string CreatedById { get; set; }

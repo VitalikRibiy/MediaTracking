@@ -15,7 +15,7 @@ namespace MediaTracking.DAL
         public static void ConfigureDAL(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddDbContext<MediaTrackingDbContext>(opt => opt.UseSqlServer
-            (configuration.GetConnectionString("DefaultConnection")));
+                (configuration.GetConnectionString("DefaultConnection")));
             services.ConfigureRepositories();
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.ConfigureIdentity();
@@ -24,6 +24,7 @@ namespace MediaTracking.DAL
         private static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<UserManager<ApplicationUser>>();
+            services.AddScoped<RoleManager<Role>>();
             services.AddScoped<IUserRepository,UserRepository>();
         }
 

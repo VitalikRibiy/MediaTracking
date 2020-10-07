@@ -8,6 +8,7 @@ namespace MediaTracking.DAL.UnitOfWork
     public interface IUnitOfWork
     {
         UserManager<ApplicationUser> UserManager {get;}
+        RoleManager<Role> RoleManager { get; }
         IUserRepository UserRepository {get;}
         Task<int> SaveChangesAsync();
     }

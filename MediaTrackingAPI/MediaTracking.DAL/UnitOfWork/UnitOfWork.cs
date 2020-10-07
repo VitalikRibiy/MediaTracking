@@ -14,14 +14,18 @@ namespace MediaTracking.DAL.UnitOfWork
 
         public IUserRepository UserRepository {get;}
 
+        public RoleManager<Role> RoleManager { get; }
+
         public UnitOfWork(
                 MediaTrackingDbContext context,
                 UserManager<ApplicationUser> userManager,
-                IUserRepository userRepository)
+                IUserRepository userRepository,
+                RoleManager<Role> roleManager)
         {
             _context = context;
             UserManager = userManager;
             UserRepository = userRepository;
+            RoleManager = roleManager;
         }
         public Task<int> SaveChangesAsync()
         {
