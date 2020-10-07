@@ -2,11 +2,12 @@ using MediaTracking.BLL.DTOs;
 using MediaTracking.BLL.Factories;
 using MediaTracking.BLL.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace JWTAuthentication.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     public class AuthenticationController : Controller
     {
         private readonly IAuthenticationService _authenticationService;
@@ -35,5 +36,6 @@ namespace JWTAuthentication.Controllers
                 ? Json(result)
                 : (IActionResult)Forbid();
         }
+
     }
 }  
