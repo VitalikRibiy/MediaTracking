@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediaTracking.DAL.Migrations
 {
     [DbContext(typeof(MediaTrackingDbContext))]
-    [Migration("20201007122317_initial")]
-    partial class initial
+    [Migration("20201014180814_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,12 +33,18 @@ namespace MediaTracking.DAL.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -98,18 +104,6 @@ namespace MediaTracking.DAL.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreateId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -118,20 +112,7 @@ namespace MediaTracking.DAL.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("TransName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CreateId");
-
-                    b.HasIndex("ModId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -164,6 +145,212 @@ namespace MediaTracking.DAL.Migrations
                     b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Actor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Biography")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Born")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Actors");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Director", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Biography")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Born")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Directors");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Media", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DirectorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MediaType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParentMediaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudioId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("DirectorId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("ParentMediaId");
+
+                    b.HasIndex("StudioId");
+
+                    b.ToTable("Medias");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.MediaActor", b =>
+                {
+                    b.Property<int>("MediaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MediaId", "ActorId");
+
+                    b.HasIndex("ActorId");
+
+                    b.ToTable("MediaActor");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.MediaCategory", b =>
+                {
+                    b.Property<int>("MediaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MediaId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("MediaCategory");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MediaId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Points")
+                        .HasColumnType("real");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("MediaId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Studio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Studios");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -259,17 +446,6 @@ namespace MediaTracking.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MediaTracking.DAL.Models.Authentication.Role", b =>
-                {
-                    b.HasOne("MediaTracking.DAL.Models.Authentication.ApplicationUser", "Create")
-                        .WithMany()
-                        .HasForeignKey("CreateId");
-
-                    b.HasOne("MediaTracking.DAL.Models.Authentication.ApplicationUser", "Mod")
-                        .WithMany()
-                        .HasForeignKey("ModId");
-                });
-
             modelBuilder.Entity("MediaTracking.DAL.Models.Authentication.UserRole", b =>
                 {
                     b.HasOne("MediaTracking.DAL.Models.Authentication.Role", null)
@@ -291,6 +467,70 @@ namespace MediaTracking.DAL.Migrations
                     b.HasOne("MediaTracking.DAL.Models.Authentication.ApplicationUser", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Media", b =>
+                {
+                    b.HasOne("MediaTracking.DAL.Models.Authentication.ApplicationUser", null)
+                        .WithMany("WatchList")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Director", "Director")
+                        .WithMany("Medias")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Media", "ParentMedia")
+                        .WithMany("ChildMedias")
+                        .HasForeignKey("ParentMediaId");
+
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Studio", "Studio")
+                        .WithMany("Medias")
+                        .HasForeignKey("StudioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.MediaActor", b =>
+                {
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Actor", "Actor")
+                        .WithMany("MediaActors")
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Media", "Media")
+                        .WithMany("MediaActors")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.MediaCategory", b =>
+                {
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Category", "Category")
+                        .WithMany("MediaCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Media", "Media")
+                        .WithMany("MediaCategories")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MediaTracking.DAL.Models.Entities.Review", b =>
+                {
+                    b.HasOne("MediaTracking.DAL.Models.Entities.Media", "Media")
+                        .WithMany("Reviews")
+                        .HasForeignKey("MediaId");
+
+                    b.HasOne("MediaTracking.DAL.Models.Authentication.ApplicationUser", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,8 +1,9 @@
-using MediaTracking.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MediaTracking.DAL.Models.Authentication;
+using MediaTracking.DAL.Models.Entities;
+using MediaTracking.DAL.Models.Configurations;
 
 namespace MediaTracking.DAL.Context
 {
@@ -16,6 +17,13 @@ namespace MediaTracking.DAL.Context
 
         }
 
+        public virtual DbSet<Actor> Actors { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Director> Directors { get; set; }
+        public virtual DbSet<Media> Medias { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<Studio> Studios { get; set; }
+
         public string CurrentUserId
         {
             get => _currentUserId;
@@ -26,6 +34,20 @@ namespace MediaTracking.DAL.Context
                     _currentUserId = value;
                 }
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new ActorConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new DirectorConfiguration());
+            builder.ApplyConfiguration(new MediaActorConfiguration());
+            builder.ApplyConfiguration(new MediaCategoryConfiguration());
+            builder.ApplyConfiguration(new MediaConfiguration());
+            builder.ApplyConfiguration(new ReviewConfiguration());
+            builder.ApplyConfiguration(new StudioConfiguration());
         }
     }
 }
